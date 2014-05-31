@@ -2,8 +2,16 @@ from sqlalchemy import Column, ForeignKey, Integer, String, Table
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine
- 
-Base = declarative_base()
+
+if (not Base):
+    Base = declarative_base()
+
+    engine = create_engine("sqlite:///sqlalchemy_example.db")
+    Session = sessionmaker(bind=engine)
+    session = Session()
+
+    Base.metadata.drop_all(engine)
+    Base.metadata.create_all(engine) # create all tables in the engine
 
 # many-by-many relationship tables
 user_group = Table('user_groups', Base.metadata,
@@ -23,16 +31,20 @@ class User(Base):
     email_address = Column(String(250), nullable=False)
     groups = relationship('Group', secondary=user_group, backref='user')
 
+    def __init__(self, name, password, email_address):
+        this.name = name
+        this.password = password
+        this.email_address = email_address
+
     # query_by_id: returns the User instance with the given id.
     @staticmethod
-    def query_by_id(session, id):
+    def query_by_id(id):
         session.query(User).filter_by(id=id).first()
 
     @staticmethod
-    def query_by_email_address(session, email_address):
+    def query_by_email_address(email_address):
         session.query(User).filter_by(email_address=email_address).first()
 
-    @staticmethod
     def authenticate(self, password):
         return (password == self.password)
 
@@ -42,10 +54,25 @@ class Group(Base):
     name = Column(String(250), nullable=False)
     books = relationship('Book', secondary=group_books, backref='group')
 
+    def __init__(self, d, password, email_address):
+        this.name = name
+        this.password = password
+        this.email_address = email_address
+
+    def add_user(user_id):
+        return
+
+
 class Book(Base):
     __tablename__ = "book"
     id = Column(Integer, primary_key=True)
     title = Column(String(250), nullable=False)
+
+    def __init__(self, name, password, email_address):
+        this.name = name
+        this.password = password
+        this.email_address = email_address
+
 
 '''
 class Address(Base):
@@ -60,6 +87,6 @@ class Address(Base):
     person = relationship(User)
 '''
 
-engine = create_engine("sqlite:///sqlalchemy_example.db")
-Base.metadata.drop_all(engine)
-Base.metadata.create_all(engine) # create all tables in the engine
+
+
+
