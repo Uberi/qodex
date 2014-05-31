@@ -32,15 +32,15 @@ if __name__ == "__main__":
         "/": {
             "tools.sessions.on": True,
             "tools.staticdir.root": os.path.abspath(os.getcwd()),
-
-            #"server.ssl_module": "builtin",
-            #"server.ssl_certificate": "./ssl/certificate.crt",
-            #"server.ssl_private_key": "./ssl/private_key.key",
-            #"server.ssl_certificate_chain": "./ssl/certificate_chain.crt",
         },
         "/static": {
             "tools.staticdir.on": True,
             "tools.staticdir.dir": "./static",
-        }
+        },
+        "/favicon.ico": {
+          "tools.staticfile.on": True,
+          "tools.staticfile.filename": os.path.join(os.path.abspath(os.getcwd()), "./favicon.ico"),
+        },
     }
+    cherrypy.config.update("config.cfg")
     cherrypy.quickstart(Qodex(), "/", configuration)
