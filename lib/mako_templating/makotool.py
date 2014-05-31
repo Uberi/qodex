@@ -10,7 +10,7 @@ class MakoTool(cherrypy.Tool):
         cherrypy.Tool.__init__(self, 'before_finalize',
                                self._render,
                                priority=10)
-
+        
     def _render(self, template=None, debug=False):
         """
         Applied once your page handler has been called. It
@@ -18,7 +18,6 @@ class MakoTool(cherrypy.Tool):
         defined in the mako plugin then renders it with
         whatever dictionary the page handler returned.
         """
-        print(cherrypy.response)
         if cherrypy.response.status > 399:
             return
 

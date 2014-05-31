@@ -11,7 +11,7 @@ class Qodex(object):
     @cherrypy.expose
     @cherrypy.tools.render(template="templates/index.mako")
     def index(self):
-        pass
+        cherrypy.response.status = 200
 
     @cherrypy.expose
     def generate(self, length=8):
@@ -29,13 +29,10 @@ if __name__ == "__main__":
             "tools.sessions.on": True,
             "tools.staticdir.root": os.path.abspath(os.getcwd()),
 
-            "server.socket_host": "0.0.0.0",
-            "server.socket_port": 443,
-
-            "server.ssl_module": "builtin",
-            "server.ssl_certificate": "./ssl/certificate.crt",
-            "server.ssl_private_key": "./ssl/private_key.key",
-            "server.ssl_certificate_chain": "./ssl/certificate_chain.crt",
+            #"server.ssl_module": "builtin",
+            #"server.ssl_certificate": "./ssl/certificate.crt",
+            #"server.ssl_private_key": "./ssl/private_key.key",
+            #"server.ssl_certificate_chain": "./ssl/certificate_chain.crt",
         },
         "/static": {
             "tools.staticdir.on": True,
