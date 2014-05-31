@@ -5,7 +5,7 @@ import hashlib
 
 import cherrypy
 
-BASE_PATH = os.path.join(os.path.abspath(os.getcwd())
+BASE_PATH = os.path.join(os.path.abspath(os.getcwd()))
 
 # set up Mako templating
 import lib.mako_templating.makoplugin as makoplugin
@@ -41,7 +41,7 @@ if __name__ == "__main__":
         },
         "/favicon.ico": {
           "tools.staticfile.on": True,
-          "tools.staticfile.filename": BASE_PATH, "./favicon.ico"),
+          "tools.staticfile.filename": (BASE_PATH, "./favicon.ico"),
         },
     }
     cherrypy.config.update("config.cfg")
