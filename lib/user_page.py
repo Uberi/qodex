@@ -21,15 +21,12 @@ class UserTool(cherrypy.Tool):
 
     def _fetch(self):
         login_url = "/login?next=%s" % urllib.parse.urlencode(cherrypy.url())
-        if 'user_id' not in cherrypy.session:
+        if 'user_id' in cherrypy.session: # not authenticated
             raise cherrypy.HTTPRedirect(login_url)
-
-        uid = cherrypy.session['user_id']
-        user = User.query_by_id(uid)
-        if not user:
+        user = User.query_by_id(cherrypy.session['user_id'])
+        if not user: # invalid user ID
             raise cherrypy.HTTPRedirect(login_url)
-
-        cherrypy.request.user = user
+        cherrypy.request.user = user # store the user for the request
 
     def _cleanup(self):
         cherrypy.request.user = None

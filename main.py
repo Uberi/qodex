@@ -11,16 +11,13 @@ class Qodex(object):
     def __init__(self):
         self.login = lib.login.Login()
 
-    @cherrypy.expose
-    @cherrypy.tools.template(template="template/index.mako")
-    def index(self):
-        cherrypy.response.status = 200
-
 if __name__ == "__main__":
     configuration = {
         "/": {
             "tools.sessions.on": True,
             "tools.staticdir.root": BASE_PATH,
+            "tools.staticfile.on": True,
+            "tools.staticfile.filename": os.path.join(BASE_PATH, "./static/index.html"),
         },
         "/static": {
             "tools.staticdir.on": True,
