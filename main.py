@@ -5,10 +5,12 @@ import hashlib
 
 import cherrypy
 
+BASE_PATH = os.path.join(os.path.abspath(os.getcwd())
+
 # set up Mako templating
 import lib.mako_templating.makoplugin as makoplugin
 import lib.mako_templating.makotool as makotool
-makoplugin.MakoTemplatePlugin(cherrypy.engine, base_dir=os.getcwd()).subscribe() # register the Mako plugin
+makoplugin.MakoTemplatePlugin(cherrypy.engine, base_dir=BASE_PATH).subscribe() # register the Mako plugin
 cherrypy.tools.template = makotool.MakoTool() # register the Mako tool
 
 class Qodex(object):
@@ -31,7 +33,7 @@ if __name__ == "__main__":
     configuration = {
         "/": {
             "tools.sessions.on": True,
-            "tools.staticdir.root": os.path.abspath(os.getcwd()),
+            "tools.staticdir.root": BASE_PATH,
         },
         "/static": {
             "tools.staticdir.on": True,
@@ -39,7 +41,7 @@ if __name__ == "__main__":
         },
         "/favicon.ico": {
           "tools.staticfile.on": True,
-          "tools.staticfile.filename": os.path.join(os.path.abspath(os.getcwd()), "./favicon.ico"),
+          "tools.staticfile.filename": BASE_PATH, "./favicon.ico"),
         },
     }
     cherrypy.config.update("config.cfg")
