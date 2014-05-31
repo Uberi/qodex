@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-import os.path
+import os
 import cherrypy
 
 class Root(object):
     @cherrypy.expose
     def index(self):
         return {'msg': 'Hello world!'}
-        
+
 if __name__ == '__main__':
     # Register the Mako plugin
     from makoplugin import MakoTemplatePlugin
@@ -22,3 +22,9 @@ if __name__ == '__main__':
     cherrypy.quickstart(Root(), '', {'/': {'tools.template.on': True,
                                            'tools.template.template': 'index.html',
                                            'tools.encode.on': False}})
+else:
+    # set up Mako templating
+    from . import makoplugin
+    from . import makotool
+    makoplugin.MakoTemplatePlugin(cherrypy.engine, base_dir=os.path.abspath(os.getcwd())).subscribe() # register the Mako plugin
+    cherrypy.tools.template = makotool.MakoTool() # register the Mako tool
