@@ -4,12 +4,16 @@ import string
 import hashlib
 
 import cherrypy
-import lib.MakoTool
-cherrypy.tools.render = lib.MakoTool.MakoTool()
+
+# set up Mako templating
+import lib.mako_templating.makoplugin as makoplugin
+import lib.mako_templating.makotool as makotool
+makoplugin.MakoTemplatePlugin(cherrypy.engine, base_dir=os.getcwd()).subscribe() # register the Mako plugin
+cherrypy.tools.template = makotool.MakoTool() # register the Mako tool
 
 class Qodex(object):
     @cherrypy.expose
-    @cherrypy.tools.render(template="templates/index.mako")
+    @cherrypy.tools.template(template="template/index.mako")
     def index(self):
         cherrypy.response.status = 200
 
