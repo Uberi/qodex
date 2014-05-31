@@ -1,3 +1,5 @@
+
+
 body {
   padding-top: 50px;
   position:absolute;
@@ -10,7 +12,7 @@ body {
 }
 
 .background { 
-  background-color: #F5E57f;
+  background-color: #F5ECB3;
   z-index:-1;
   position:absolute;
   left:0;
@@ -21,7 +23,7 @@ body {
 }
 
 .background-top {
-  background: linear-gradient(#ADA258,#F5E57F);
+  background: linear-gradient(#CCC493,#F5ECB3);
   height: 250px;
 }
 

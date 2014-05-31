@@ -2374,6 +2374,7 @@ input[type="button"].btn-block {
   -webkit-transition: height .35s ease;
           transition: height .35s ease;
 }
+@import url(http://fonts.googleapis.com/css?family=Roboto+Slab:700);
 @font-face {
   font-family: 'Glyphicons Halflings';
 
@@ -3650,6 +3651,9 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   .navbar {
     border-radius: 4px;
   }
+}
+.navbar-header {
+  font-family: 'Roboto Slab', serif;
 }
 @media (min-width: 768px) {
   .navbar-header {
