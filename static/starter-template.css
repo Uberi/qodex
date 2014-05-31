@@ -1,6 +1,30 @@
 body {
   padding-top: 50px;
+  position:absolute;
+  left:0;
+  top:0;
+  width:100%;
+  height:100%;
+  text-shadow: 0 0 6px rgba(200,200,200,.6);
+  box-shadow: inset 0 0 120px rgba(0,0,0,.5);
 }
+
+.background { 
+  background-color: #F5E57f;
+  z-index:-1;
+  position:absolute;
+  left:0;
+  top:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+}
+
+.background-top {
+  background: linear-gradient(#ADA258,#F5E57F);
+  height: 250px;
+}
+
 .starter-template {
   padding: 40px 15px;
   text-align: center;
