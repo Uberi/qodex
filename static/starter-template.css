@@ -5,12 +5,11 @@ body {
   width:100%;
   height:100%;
   text-shadow: 0 0 10px rgba(200,200,200,.6);
-  font-size: 24px;
   box-shadow: inset 0 0 90px rgba(38,89,23,.5);
 }
 
 .background { 
-  background-color: #FAF3CA;
+  background-color: #FDF6CD;
   z-index:-1;
   position:absolute;
   left:0;
@@ -21,7 +20,7 @@ body {
 }
 
 .background-top {
-  background: linear-gradient(#DBD5AB,#FAF3CA);
+  background: linear-gradient(#DBD5AB,#FDF6CD);
   height: 250px;
 }
 
