@@ -32,19 +32,19 @@
 	  <div class="form-group">
 		<label for="" class="col-sm-2 control-label">Username</label>  <!-- TODO: Specify the for field -->
 		<div class="col-sm-10">
-		  <input type="text" class="form-control" placeholder="Username">
+		  <input type="text" class="form-control" id="username"placeholder="Username">
 		</div>
 	  </div>
 	  <div class="form-group">
 		<label for="inputEmail3" class="col-sm-2 control-label">Email</label>
 		<div class="col-sm-10">
-		  <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+		  <input type="email" class="form-control" id="email" placeholder="Email">
 		</div>
 	  </div>
 	  <div class="form-group">
 		<label for="inputPassword3" class="col-sm-2 control-label">Password</label>
 		<div class="col-sm-10">
-		  <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+		  <input type="password" class="form-control" id="password" placeholder="Password">
 		</div>
 	  </div>
 	</center>
@@ -101,6 +101,10 @@
 		function updateAllData()
 		{
 			//send all important info
+			var username = document.getElementById('username').value;
+			var email = document.getElementById('email').value;
+			var password = document.getElementById('password').value;
+
 			alert('Congratulations, you have successfully signed up! Happy Reading!');
 		}
 	</script>
