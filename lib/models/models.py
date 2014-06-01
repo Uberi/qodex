@@ -94,8 +94,11 @@ class Group(Base):
         self.password_hash = hashed
 
     @staticmethod
-    def list(session, filter = ''):
-        return session.query(Group).all()
+    def list(session, filter = ""):
+        if (filter == ""):
+            return session.query(Group).all()
+        else:
+            return session.query(Group).filter_by(title.contains(filter))
 
     @staticmethod
     def query_by_id(session, id):

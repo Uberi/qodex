@@ -11,16 +11,38 @@
 
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link href="starter-template.css" rel="stylesheet">
-		<link href='//fonts.googleapis.com/css?family=Roboto+Slab:700' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Roboto+Slab:700' rel='stylesheet' type='text/css'>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
 			  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 			  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 		<![endif]-->
+		<script>
+			function main() {
+				var book_list = $("article > ul");
+				var list = $.getJSON("./books");
+				for (var i = 0; i < list.length; i ++) {
+					var item = list[i];
+					var result = $.getJSON("https://www.googleapis.com/books/v1/volumes?q=isbn:" + item.isbn);
+					var image;
+					if (result.totalItems > 0) image = result.imageLinks.thumbnail;
+					else image = "http://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Cat_eyes_2007-2.jpg/1024px-Cat_eyes_2007-2.jpg";
+					book_list.append(
+						"<li>" +
+							"<img src=" + image + ">" +
+						"</li>"
+					);
+				}
+			}
+		</script>
 	</head>
 	<body>
 		<article>
+			<ul>
+			
+			</ul>
 		</article>
 	
 		<div id="bar" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -43,15 +65,10 @@
 				</div><!--/.nav-collapse -->
 			</div>
 		</div>
-		
-
-
-
 
 		<div class="background">
 			<div class="background-top"></div>
 		</div>
-		
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
