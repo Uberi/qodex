@@ -1,15 +1,12 @@
-
-
 body {
-  padding-top: 50px;
   position:absolute;
   left:0;
   top:0;
   width:100%;
   height:100%;
-  text-shadow: 0 0 6px rgba(200,200,200,.6);
+  text-shadow: 0 0 10px rgba(200,200,200,.6);
   font-size: 24px;
-  box-shadow: inset 0 0 120px rgba(38,89,23,.5);
+  box-shadow: inset 0 0 90px rgba(38,89,23,.5);
 }
 
 .background { 
@@ -28,10 +25,37 @@ body {
   height: 250px;
 }
 
-.starter-template {
-  padding: 40px 15px;
-  text-align: center;
+.location-pane {
+  z-index: 2000;
+  position: absolute;
+  left: 0;
+  top: 0px;
+  width: 100%;
+  height: 50%;
+  box-shadow: 0 8px 15px #555;
+  background: linear-gradient(#333,#999);
+  animation: location-pane-move 1s ease-out;
+  -webkit-animation: location-pane-move 1s ease-out; 
 }
-.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
-  color: #265917;
-  background-color: transparent;
+
+@-webkit-keyframes location-pane-move
+{
+from {top: -50%;}
+to {top: 0;}
+}
+
+@keyframes location-pane-move
+{
+from {top: -50%;}
+to {top: 0;}
+}
+
+.location-pane > h2 {
+  font-family: arial, helvatica, sans;
+  text-align: center;
+  font-size: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+  color: #fff;
+}
