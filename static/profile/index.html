@@ -31,24 +31,30 @@
 		<article>
 			<div class="horizontal-buffer"></div>
 			<h2 style="text-align:center;border-bottom:3px solid #333;padding-bottom:20px">*Username*'s Profile</h2>
-			<div class="row">
-				<div class="col-lg-6">
-					<div class="input-group">
-						<span class="input-group-btn">
-							<button class="btn btn-default" type="button">Go!</button>
-						</span>
-						<input type="text" class="form-control">
-					</div><!-- /input-group -->
-				</div><!-- /.col-lg-6 -->
-				<div class="col-lg-6">
-					<div class="input-group">
-						<input type="text" class="form-control">
-						<span class="input-group-btn">
-							<button class="btn btn-default" type="button">Go!</button>
-						</span>
-					</div><!-- /input-group -->
-				</div><!-- /.col-lg-6 -->
-			</div><!-- /.row -->
+			<div class="horizontal-buffer"></div>
+			<div class="panel panel-default">
+				<!-- Default panel contents -->
+				<div class="panel-heading">Details</div>
+
+				<!-- Table -->
+				<table class="table">
+				    <tr>
+						<td>Username:</td>
+						<td>*username*</td>
+						<td><button class="btn btn-warning">Change <i class="glyphicon-white glyphicon-pencil"></i></button></td>
+					</tr>
+					<tr>
+						<td>E-mail:</td>
+						<td>*email*</td>
+						<td><button class="btn btn-warning">Change <i class="glyphicon-white glyphicon-pencil"></i></button></td>
+					</tr>
+					<tr>
+						<td>Password</td>
+						<td>********</td>
+						<td><button class="btn btn-warning">Change <i class="glyphicon-white glyphicon-pencil"></i></button></td>
+					</tr>
+				</table>
+			</div>
 		</article>
 		<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
 			<div class="container">
