@@ -64,7 +64,7 @@
 
 		<article>
 			<div class="horizontal-buffer"></div>
-			<h2 style="text-align:center;border-bottom:3px solid #333;padding-bottom:20px">*Username*'s Profile</h2>
+			<h2 style="text-align:center;border-bottom:3px solid #333;padding-bottom:20px">${user_name}'s Profile</h2>
 			<div class="horizontal-buffer"></div>
 			<div class="panel panel-default">
 				<!-- Default panel contents -->
@@ -74,12 +74,12 @@
 				<table class="table">
 				    <tr>
 						<td>Username:</td>
-						<td>*username*</td>
+						<td>${user_name}</td>
 						<td><button class="btn btn-warning">Change <i class="glyphicon-white glyphicon-pencil"></i></button></td>
 					</tr>
 					<tr>
 						<td>E-mail:</td>
-						<td>*email*</td>
+						<td>${user_email}</td>
 						<td><button class="btn btn-warning">Change <i class="glyphicon-white glyphicon-pencil"></i></button></td>
 					</tr>
 					<tr>

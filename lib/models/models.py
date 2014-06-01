@@ -66,8 +66,8 @@ class User(Base):
         return session.query(User).filter_by(id=id).first()
 
     @staticmethod
-    def query_by_email_address(session, email_address):
-        return session.query(User).filter_by(email_address=email_address).first()
+    def query_by_email(session, email):
+        return session.query(User).filter_by(email=email).first()
 
     def authenticate(self, password):
         hashed = hashlib.sha512(bytes(password, "UTF-8")).hexdigest()
