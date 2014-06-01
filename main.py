@@ -8,7 +8,7 @@ import lib.login
 import lib.mako_templating
 import lib.user_page
 
-cherrypy.tools.user = UserTool()
+cherrypy.tools.user = lib.user_page.UserTool()
 
 from lib.models.models import User, Group, Book, session_scope
 
@@ -25,13 +25,13 @@ class Users(object):
             s.add(user)
 
     @cherrypy.expose
-    @charrypy.tools.user
+    @cherrypy.tools.user()
     def logout(self):
         user = cherrypy.request.user
         del cherrypy.session["user_id"]
 
     @cherrypy.expose
-    @charrypy.tools.user
+    @cherrypy.tools.user()
     def delete(self):
         user = cherrypy.request.user
         with session_scope() as s:
