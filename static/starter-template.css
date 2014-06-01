@@ -3,9 +3,21 @@ body {
   left:0;
   top:0;
   width:100%;
-  height:100%;
+  height: 2130px;
   text-shadow: 0 0 10px rgba(200,200,200,.6);
   box-shadow: inset 0 0 90px rgba(38,89,23,.5);
+}
+
+article {
+  z-index: 1000;
+  position: absolute;
+  left: 0;
+  top: 130px;
+  height: 2000px;
+  width: 70%;
+  margin-left: 15%;
+  margin-right: 15%;
+  box-shadow: 0 15px 15px #666;
 }
 
 .background { 
@@ -21,7 +33,7 @@ body {
 
 .background-top {
   background: linear-gradient(#DBD5AB,#FDF6CD);
-  height: 250px;
+  height: 133px;
 }
 
 .location-pane {
@@ -71,11 +83,15 @@ to {top: 0;}
   margin-right: 5px;
 }
 
+
 .navbar-inverse {
+  z-index: 1500;
+  background: transparent;
   font-size: 16px;
   margin-top: 30px;
-  background: transparent;
   border: none;
+  padding-bottom: 50px;
+  box-shadow: 0 8px 10px #777;
 }
 
 .navbar-fixed-top {
