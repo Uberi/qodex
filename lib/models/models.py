@@ -1,17 +1,16 @@
 from sqlalchemy import Column, ForeignKey, Integer, String, Table
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy import create_engine
 
-if (not Base):
-    Base = declarative_base()
+Base = declarative_base()
 
-    engine = create_engine("sqlite:///sqlalchemy_example.db")
-    Session = sessionmaker(bind=engine)
-    session = Session()
+engine = create_engine("sqlite:///sqlalchemy_example.db")
+Session = sessionmaker(bind=engine)
+session = Session()
 
-    Base.metadata.drop_all(engine)
-    Base.metadata.create_all(engine) # create all tables in the engine
+Base.metadata.drop_all(engine)
+Base.metadata.create_all(engine) # create all tables in the engine
 
 # many-by-many relationship tables
 user_group = Table('user_groups', Base.metadata,
@@ -32,9 +31,9 @@ class User(Base):
     groups = relationship('Group', secondary=user_group, backref='user')
 
     def __init__(self, name, password, email_address):
-        this.name = name
-        this.password = password
-        this.email_address = email_address
+        self.name = name
+        self.password = password
+        self.email_address = email_address
 
     # query_by_id: returns the User instance with the given id.
     @staticmethod
@@ -55,9 +54,9 @@ class Group(Base):
     books = relationship('Book', secondary=group_books, backref='group')
 
     def __init__(self, d, password, email_address):
-        this.name = name
-        this.password = password
-        this.email_address = email_address
+        self.name = name
+        self.password = password
+        self.email_address = email_address
 
     def add_user(user_id):
         return
@@ -69,9 +68,9 @@ class Book(Base):
     title = Column(String(250), nullable=False)
 
     def __init__(self, name, password, email_address):
-        this.name = name
-        this.password = password
-        this.email_address = email_address
+        self.name = name
+        self.password = password
+        self.email_address = email_address
 
 
 '''
