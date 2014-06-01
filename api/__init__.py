@@ -6,17 +6,18 @@ import lib.user_page
 cherrypy.tools.user = lib.user_page.UserTool()
 
 from lib.models.models import User, Group, Book, session_scope
+from api.json_responses import dict_user, jsonify_user, dict_group, jsonify_group, dict_book, jsonify_book
 
 # RESTful API
 class UserAPI(object):
     @cherrypy.expose
     def index(self, filter = ""):
         with session_scope() as s:
-            return json.dumps(User.list(s, filter))
+            return json.dumps(dict_user(user) for user in [User.list(s, filter)])
 
     @cherrypy.expose
-    def create(self, name, password, email, latitude, longitude):
-        user = User(name, password, email, latitude, longitude)
+    def create(self, name, password, email, latitude, longitude, bio):
+        user = User(name, password, email, latitude, longitude, bio)
         with session_scope() as s:
             s.add(user)
             return "OK"
@@ -54,13 +55,13 @@ class GroupAPI(object):
     @cherrypy.expose
     def index(self, filter = ""):
         with session_scope() as s:
-            return json.dumps(Group.list(s, filter))
+            return json.dumps(dict_group(group) for group in [Group.list(s, filter)])
 
     @cherrypy.expose
-    def create(self, name, password, email, latitude, longitude):
-        user = Group(name, password, email, latitude, longitude)
+    def create(self, name):
+        group = Group(name)
         with session_scope() as s:
-            s.add(user)
+            s.add(group)
             return "OK"
         return "FAIL"
     
@@ -82,3 +83,10 @@ class GroupAPI(object):
         book = Book.query_by_id(book_id)
         group.remove_book(book)
         return "OK"
+
+
+class BookAPI(object):
+    @cherrypy.expose
+    def index(self, filter = ""):
+        with session_scope() as s:
+            return json.dumps(dict_book(book) for book in [Book.list(s, filter)])

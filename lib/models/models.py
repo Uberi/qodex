@@ -1,4 +1,4 @@
-from sqlalchemy import Column, ForeignKey, Integer, Float, String, Table
+from sqlalchemy import Column, ForeignKey, Integer, Float, String, Table, Text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
 from sqlalchemy import create_engine
@@ -42,27 +42,32 @@ class User(Base):
     email = Column(String(250), nullable=False, unique=True)
     latitude = Column(Float, nullable=False)
     longitude = Column(Float, nullable=False)
+    bio = Column(Text)
     groups = relationship('Group', secondary=user_group, backref='user')
 
-    def __init__(self, name, password, email, latitude, longitude):
+    def __init__(self, name, password, email, latitude, longitude, bio):
         hashed = hashlib.sha512(bytes(password, "UTF-8")).hexdigest()
         self.name = name
         self.password_hash = hashed
         self.email = email
         self.latitude = latitude
         self.longitude = longitude
+        self.bio = bio
 
     @staticmethod
-    def list(session, filter = ""):
-        return session.query(User).all()
+    def list(session, filter = ''):
+        if (filter == ''):
+            return session.query(User).all()
+        else:
+            return session.query(User).filter_by(name.contains(filter))
 
     @staticmethod
     def query_by_id(session, id):
-        session.query(User).filter_by(id=id).first()
+        return session.query(User).filter_by(id=id).first()
 
     @staticmethod
     def query_by_email_address(session, email_address):
-        session.query(User).filter_by(email_address=email_address).first()
+        return session.query(User).filter_by(email_address=email_address).first()
 
     def authenticate(self, password):
         hashed = hashlib.sha512(bytes(password, "UTF-8")).hexdigest()
@@ -89,18 +94,24 @@ class Group(Base):
         self.password_hash = hashed
 
     @staticmethod
-    def list(session, filter = ""):
+    def list(session, filter = ''):
         return session.query(Group).all()
 
     @staticmethod
     def query_by_id(session, id):
-        session.query(Group).filter_by(id=id).first()
+        return session.query(Group).filter_by(id=id).first()
 
     def add_book(self, book):
         self.books.append(book)
     
     def remove_book(self, book):
         self.books.remove(book)
+
+    def user_list(self, session):
+        return session.query(user_groups).filter(user_groups.c.group_id==self.id)
+
+    def book_list(self, session):
+        return session.query(group_books).filter(user_groups.c.group_id==self.id)
 
 class Book(Base):
     __tablename__ = "book"
@@ -113,6 +124,13 @@ class Book(Base):
         self.title = title
         self.isbn = isbn
         self.author = author
+
+    @staticmethod
+    def list(session, filter = ''):
+        if (filter == ''):
+            return session.query(Book).all()
+        else:
+            return session.query(Book).filter_by(title.contains(filter))
     
     @staticmethod
     def query_by_id(session, id):
