@@ -67,7 +67,7 @@ class User(Base):
     def join_group(self, group):
         self.groups.append(group)
     
-    def leave_group(self, group)
+    def leave_group(self, group):
         self.groups.remove(group)
 
 class Group(Base):
@@ -80,12 +80,18 @@ class Group(Base):
         hashed = hashlib.sha512(bytes(password, "UTF-8")).hexdigest()
         self.title = title
         self.password_hash = hashed
-
+    
+    def add_book(self, book):
+        self.books.append(book)
+    
+    def remove_book(self, book):
+        self.books.remove(book)
 
 class Book(Base):
     __tablename__ = "book"
     id = Column(Integer, primary_key=True)
     title = Column(String(250), nullable=False)
+
     def __init__(self, name, password, email_address):
         self.title = title
         self.isbn = isbn

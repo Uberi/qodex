@@ -2,7 +2,7 @@
 import cherrypy
 import urllib.parse
 
-from lib.database import User
+from lib.models.models import User
 
 __all__ = ['UserTool']
 
