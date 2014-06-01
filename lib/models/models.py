@@ -39,16 +39,16 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
     password_hash = Column(String(64), nullable=False)
-    email_address = Column(String(250), nullable=False)
+    email = Column(String(250), nullable=False)
     latitude = Column(Float, nullable=False)
     longitude = Column(Float, nullable=False)
     groups = relationship('Group', secondary=user_group, backref='user')
 
-    def __init__(self, session, name, password, email_address, latitude, longitude):
+    def __init__(self, name, password, email, latitude, longitude):
         hashed = hashlib.sha512(bytes(password, "UTF-8")).hexdigest()
         self.name = name
         self.password_hash = hashed
-        self.email_address = email_address
+        self.email = email
         self.latitude = latitude
         self.longitude = longitude
 
@@ -59,6 +59,10 @@ class User(Base):
     @staticmethod
     def query_by_email_address(session, email_address):
         session.query(User).filter_by(email_address=email_address).first()
+
+    @staticmethod
+    def list(session, filter = ""):
+        return session.query(User).all()
 
     def authenticate(self, password):
         hashed = hashlib.sha512(bytes(password, "UTF-8")).hexdigest()
@@ -76,11 +80,15 @@ class Group(Base):
     name = Column(String(250), nullable=False)
     books = relationship('Book', secondary=group_books, backref='group')
 
-    def __init__(self, session, title, password = None):
+    def __init__(self, title, password = None):
         hashed = hashlib.sha512(bytes(password, "UTF-8")).hexdigest()
         self.title = title
         self.password_hash = hashed
-    
+
+    @staticmethod
+    def list(session, filter = ""):
+        return session.query(Group).all()
+
     def add_book(self, book):
         self.books.append(book)
     
@@ -91,12 +99,12 @@ class Book(Base):
     __tablename__ = "book"
     id = Column(Integer, primary_key=True)
     title = Column(String(250), nullable=False)
+    isbn = Column(String(250), nullable=False)
+    author = Column(String(250), nullable=False)
 
-    def __init__(self, name, password, email_address):
+    def __init__(self, title, isbn, author):
         self.title = title
         self.isbn = isbn
-        self.publisher = author
         self.author = author
 
-Base.metadata.drop_all(engine)
 Base.metadata.create_all(engine) # create all tables in the engine

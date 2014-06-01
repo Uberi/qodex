@@ -1,0 +1,16 @@
+body {
+	padding: 5em;
+}
+
+h1 {
+	font-size: 6em;
+}
+
+form {
+	margin: 3em;
+	width: 15em;
+}
+
+input {
+	padding: 0.5em;
+}
