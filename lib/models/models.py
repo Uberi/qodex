@@ -53,6 +53,10 @@ class User(Base):
         self.longitude = longitude
 
     @staticmethod
+    def list(session, filter = ""):
+        return session.query(User).all()
+
+    @staticmethod
     def query_by_id(session, id):
         session.query(User).filter_by(id=id).first()
 
@@ -60,19 +64,18 @@ class User(Base):
     def query_by_email_address(session, email_address):
         session.query(User).filter_by(email_address=email_address).first()
 
-    @staticmethod
-    def list(session, filter = ""):
-        return session.query(User).all()
-
     def authenticate(self, password):
         hashed = hashlib.sha512(bytes(password, "UTF-8")).hexdigest()
         return hashed == self.password_hash
 
-    def join_group(self, group):
+    def join_group(self, session, group):
         self.groups.append(group)
     
-    def leave_group(self, group):
+    def leave_group(self, session, group):
         self.groups.remove(group)
+        if len(group.user) == 0:
+            with session_scope() as s:
+                s.delete(group)
 
 class Group(Base):
     __tablename__ = "group"
@@ -88,6 +91,10 @@ class Group(Base):
     @staticmethod
     def list(session, filter = ""):
         return session.query(Group).all()
+
+    @staticmethod
+    def query_by_id(session, id):
+        session.query(Group).filter_by(id=id).first()
 
     def add_book(self, book):
         self.books.append(book)
@@ -106,5 +113,9 @@ class Book(Base):
         self.title = title
         self.isbn = isbn
         self.author = author
+    
+    @staticmethod
+    def query_by_id(session, id):
+        session.query(Book).filter_by(id=id).first()
 
 Base.metadata.create_all(engine) # create all tables in the engine

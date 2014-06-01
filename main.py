@@ -29,6 +29,10 @@ if __name__ == "__main__":
             "tools.staticdir.dir": "./static",
             "tools.staticdir.root": BASE_PATH,
         },
+        "/favicon.ico": {
+          "tools.staticfile.on": True,
+          "tools.staticfile.filename": os.path.join(BASE_PATH, "./favicon.ico"),
+        },
     }
     cherrypy.config.update("config.cfg")
     cherrypy.quickstart(Qodex(), "/", configuration)
