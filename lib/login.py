@@ -1,3 +1,4 @@
+import os
 import random
 import string
 import hashlib
@@ -8,11 +9,12 @@ from lib.models.models import User, session_scope
 
 class Login(object):
     @cherrypy.expose
-    @cherrypy.tools.template(template="template/login.mako")
-    def index(self, login = None, email = None, password = None):
+    def index(self, login = None, email = None, password = None, next = None):
         if email and password:
             with session_scope() as s:
                 user = User.query_by_email_address(s, email)
             if user:
                 cherrypy.session["user_id"] = user.id.decode("UTF-8")
-        cherrypy.response.status = 200
+            raise cherrypy.HTTPRedirect(next)
+        else:
+            return cherrypy.lib.static.serve_file(os.path.join(os.path.dirname(os.path.realpath(__file__)), "../static/login/index.html"))
