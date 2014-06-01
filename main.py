@@ -44,7 +44,7 @@ class Qodex(object):
 
     @cherrypy.expose
     def index(self):
-        return cherrypy.lib.static.serve_file("static/index.html")
+        return cherrypy.lib.static.serve_file(os.path.join(BASE_PATH, "./static/index.html"))
     
     @cherrypy.expose
     def groups(self, filter = ""):

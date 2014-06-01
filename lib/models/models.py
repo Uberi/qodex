@@ -39,7 +39,7 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
     password_hash = Column(String(64), nullable=False)
-    email = Column(String(250), nullable=False)
+    email = Column(String(250), nullable=False, unique=True)
     latitude = Column(Float, nullable=False)
     longitude = Column(Float, nullable=False)
     groups = relationship('Group', secondary=user_group, backref='user')
