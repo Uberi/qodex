@@ -22,7 +22,8 @@ class MakoTool(cherrypy.Tool):
             return
 
         # retrieve the data returned by the handler
-        data = cherrypy.response.body or {}
+        data = cherrypy.session["variables"] if "variables" in cherrypy.session else {}
+        print("DATA IS", data)
         template = cherrypy.engine.publish("lookup-template", template).pop()
 
         if template and isinstance(data, dict):

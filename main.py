@@ -27,7 +27,7 @@ class Qodex(object):
         cherrypy.response.status = 200
         with session_scope() as s:
             user = User.query_by_id(s, cherrypy.request.user_id)
-            cherrypy.response.body = {"user_name": user.name, "user_email": user.email}
+            cherrypy.session["variables"] = {"user_name": user.name, "user_email": user.email}
     
     @cherrypy.expose
     def groups(self, filter = ""):
