@@ -19,32 +19,57 @@
 			  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 			  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 		<![endif]-->
+		<style>
+		article {
+			text-align: center;
+		}
+		
+		article img {
+			height: 20em;
+			margin-bottom: 1em;
+		}
+		
+		article li {
+			border: 1px solid grey;
+			border-radius: 5px;
+			background: rgba(255, 255, 255, 0.8);
+			display: inline-block;
+			list-style-type: none;
+			padding: 2em;
+			margin: 1em;
+		}
+		
+		.title {
+			font-size: 2em;
+			margin: 0;
+		}
+		
+		.author {
+			color: grey;
+			margin: 0;
+		}
+		</style>
 		<script>
 			function main() {
 				var book_list = $("article > ul");
-				var list = $.getJSON("./books");
-				for (var i = 0; i < list.length; i ++) {
-					var item = list[i];
-					var result = $.getJSON("https://www.googleapis.com/books/v1/volumes?q=isbn:" + item.isbn);
-					var image;
-					if (result.totalItems > 0) image = result.imageLinks.thumbnail;
-					else image = "http://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Cat_eyes_2007-2.jpg/1024px-Cat_eyes_2007-2.jpg";
-					book_list.append(
-						"<li>" +
-							"<img src=" + image + ">" +
-						"</li>"
-					);
-				}
+				$.getJSON("./books").done(function(list) {
+					for (var i = 0; i < list.length; i ++) {
+						var item = list[i];
+						book_list.append("<li><p class=title>" + item.title + "</p><p class=author>by " + item.author + "</p></li>");
+						(function (e) {
+							$.getJSON("https://www.googleapis.com/books/v1/volumes?q=isbn:" + item.isbn).done(function(result) {
+								var image;
+								if (result.totalItems > 0) image = result.items[0].volumeInfo.imageLinks.thumbnail;
+								else image = "http://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Cat_eyes_2007-2.jpg/1024px-Cat_eyes_2007-2.jpg";
+								e.prepend("<img src=" + image + ">");
+							}
+						)})(book_list.find("li").last());
+					}
+				});
 			}
 		</script>
 	</head>
-	<body>
-		<article>
-			<ul>
-			
-			</ul>
-		</article>
-	
+	<body onload="main()">
 		<div id="bar" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			<div class="container">
 				<div class="navbar-header">
@@ -69,9 +94,14 @@
 		<div class="background">
 			<div class="background-top"></div>
 		</div>
+		
+		<article>
+			<ul>
+			
+			</ul>
+		</article>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
-		<script src="js/script.js"></script>
 	</body>
 </html>

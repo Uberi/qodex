@@ -10,15 +10,12 @@ body {
 
 article {
   z-index: 1000;
-  position: absolute;
-  left: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
   top: 130px;
-  height: 2000px;
-  width: 70%;
-  margin-left: 15%;
-  margin-right: 15%;
-  box-shadow: 0 15px 15px #666;
-  padding: 0 40px 0 40px;
+  width: 1600px;
+  padding: 3em;
 }
 
 .background { 
@@ -110,9 +107,4 @@ to {top: 0;}
 
 .active {
   border-bottom: 3px solid;
-}
-
-.horizontal-buffer {
-  width: auto;
-  height: 30px;
 }

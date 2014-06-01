@@ -83,3 +83,17 @@ class GroupAPI(object):
         book = Book.query_by_id(book_id)
         group.remove_book(book)
         return "OK"
+
+class BookAPI(object):
+    @cherrypy.expose
+    def index(self, filter = ""):
+        with session_scope() as s:
+            return json.dumps([dict_book(book) for book in Book.list(s, filter)])
+
+    @cherrypy.expose
+    def create(self, title, isbn, author):
+        book = Book(title, isbn, author)
+        with session_scope() as s:
+            s.add(book)
+            return "OK"
+        return "FAIL"

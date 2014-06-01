@@ -19,6 +19,10 @@ class Qodex(object):
         return cherrypy.lib.static.serve_file(os.path.join(BASE_PATH, "static/index.html"))
     
     @cherrypy.expose
+    def profile(self):
+        return cherrypy.lib.static.serve_file(os.path.join(BASE_PATH, "static/profile/index.html"))
+    
+    @cherrypy.expose
     def groups(self, filter = ""):
         with session_scope() as s:
             return json.dumps(Group.list(s, filter))
@@ -30,6 +34,10 @@ if __name__ == "__main__":
             "tools.staticdir.on": True,
             "tools.staticdir.dir": "./static",
             "tools.staticdir.root": BASE_PATH,
+        },
+        "/profile": {
+            "tools.staticdir.on": True,
+            "tools.staticdir.dir": "./static/profile",
         },
         "/favicon.ico": {
           "tools.staticfile.on": True,
