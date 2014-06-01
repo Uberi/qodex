@@ -64,8 +64,11 @@ class User(Base):
         hashed = hashlib.sha512(bytes(password, "UTF-8")).hexdigest()
         return hashed == self.password_hash
 
-    def join_group(self, session, group_id):
-        print(self.groups)
+    def join_group(self, group):
+        self.groups.append(group)
+    
+    def leave_group(self, group)
+        self.groups.remove(group)
 
 class Group(Base):
     __tablename__ = "group"
@@ -74,8 +77,9 @@ class Group(Base):
     books = relationship('Book', secondary=group_books, backref='group')
 
     def __init__(self, session, title, password = None):
+        hashed = hashlib.sha512(bytes(password, "UTF-8")).hexdigest()
         self.title = title
-        self.password = password
+        self.password_hash = hashed
 
 
 class Book(Base):
