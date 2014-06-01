@@ -11,6 +11,8 @@ class Qodex(object):
     def __init__(self):
         self.login = lib.login.Login()
         self.users = api.UserAPI()
+        self.groups = api.GroupAPI()
+        self.books = api.BookAPI()
 
     @cherrypy.expose
     def index(self):
